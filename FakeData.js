@@ -87,4 +87,4 @@ const MovieList = [
     isInTheaters: false,
   },
 ];
-module.exports = { UserList };
+module.exports = { UserList,MovieList };
