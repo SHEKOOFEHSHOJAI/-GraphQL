@@ -33,10 +33,33 @@ const resolvers = {
   },
 
   Mutation: {
-    createUser:(parent,arg)=>{
-        const user=arg.Input;
-        console.log(user)
-        // return user
+    createUser: (parent, arg) => {
+      const user = arg.Input;
+      const lastId = UserList[UserList.length - 1].id;
+      user.id = lastId + 1;
+      UserList.push(user);
+      console.log(user);
+      return user;
+    },
+
+    updateUser: (parent, arg) => {
+      // const id = arg.Input.id;
+      // const newUsername=arg.Input.newUsername
+      const { id, newUsername } = arg.input;
+      let userUpdute;
+      UserList.forEach((user) => {
+        if (user.id === Number(id)) {
+          user.username = newUsername;
+          userUpdute = user;
+        }
+      });
+      return userUpdute;
+    },
+    deleteUser:(parent,args)=>{
+      const id=args.id
+      _.remove(UserList,(user)=>user.id===Number(id))
+      return null;
+
     }
   },
 };
